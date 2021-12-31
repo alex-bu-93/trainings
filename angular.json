@@ -1,0 +1,129 @@
+{
+  "version": 1,
+  "projects": {
+    "angular-express-mongodb": {
+      "projectType": "application",
+      "root": "apps/angular-express-mongodb",
+      "sourceRoot": "apps/angular-express-mongodb/src",
+      "prefix": "trainings",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/angular-express-mongodb",
+            "index": "apps/angular-express-mongodb/src/index.html",
+            "main": "apps/angular-express-mongodb/src/main.ts",
+            "polyfills": "apps/angular-express-mongodb/src/polyfills.ts",
+            "tsConfig": "apps/angular-express-mongodb/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "apps/angular-express-mongodb/src/favicon.ico",
+              "apps/angular-express-mongodb/src/assets"
+            ],
+            "styles": ["apps/angular-express-mongodb/src/styles.scss"],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "apps/angular-express-mongodb/src/environments/environment.ts",
+                  "with": "apps/angular-express-mongodb/src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "angular-express-mongodb:build:production"
+            },
+            "development": {
+              "browserTarget": "angular-express-mongodb:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "angular-express-mongodb:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/angular-express-mongodb/src/**/*.ts",
+              "apps/angular-express-mongodb/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/angular-express-mongodb"],
+          "options": {
+            "jestConfig": "apps/angular-express-mongodb/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
+    "angular-express-mongodb-e2e": {
+      "root": "apps/angular-express-mongodb-e2e",
+      "sourceRoot": "apps/angular-express-mongodb-e2e/src",
+      "projectType": "application",
+      "architect": {
+        "e2e": {
+          "builder": "@nrwl/cypress:cypress",
+          "options": {
+            "cypressConfig": "apps/angular-express-mongodb-e2e/cypress.json",
+            "devServerTarget": "angular-express-mongodb:serve:development"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "angular-express-mongodb:serve:production"
+            }
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "outputs": ["{options.outputFile}"],
+          "options": {
+            "lintFilePatterns": [
+              "apps/angular-express-mongodb-e2e/**/*.{js,ts}"
+            ]
+          }
+        }
+      },
+      "tags": [],
+      "implicitDependencies": ["angular-express-mongodb"]
+    }
+  }
+}
