@@ -1,0 +1,36 @@
+<nz-layout style="height: 100vh">
+  <nz-header class="bg-dark px-0">
+      <ul nz-menu nzMode="horizontal" class="container-fluid border-0 py-2 px-0">
+        <li nz-menu-item nzMatchRouter>
+          <a nz-dropdown nzTrigger="click"
+             nzPlacement="bottomLeft"
+             class="text-white text-decoration-none"
+             [nzDropdownMenu]="theoryMenu">
+            Theory <i nz-icon nzType="down"></i>
+          </a>
+          <nz-dropdown-menu #theoryMenu="nzDropdownMenu">
+            <ul nz-menu style="width: 120px">
+              <a class="text-decoration-none" [routerLink]="['theory', 'intro']"><li nz-menu-item nzMatchRouter>Intro</li></a>
+            </ul>
+          </nz-dropdown-menu>
+        </li>
+        <li nz-menu-item nzMatchRouter>
+          <a nz-dropdown nzTrigger="click"
+             nzPlacement="bottomLeft"
+             class="text-white text-decoration-none"
+             [nzDropdownMenu]="tasksMenu">
+            Tasks <i nz-icon nzType="down"></i>
+          </a>
+          <nz-dropdown-menu #tasksMenu="nzDropdownMenu">
+            <ul nz-menu style="width: 120px">
+              <a class="text-decoration-none" [routerLink]="['tasks', 'task-one']"><li nz-menu-item nzMatchRouter>Task 1</li></a>
+              <a class="text-decoration-none" [routerLink]="['tasks', 'task-two']"><li nz-menu-item nzMatchRouter>Task 2</li></a>
+            </ul>
+          </nz-dropdown-menu>
+        </li>
+      </ul>
+  </nz-header>
+  <nz-content class="container-fluid py-2">
+    <router-outlet></router-outlet>
+  </nz-content>
+</nz-layout>

@@ -19,10 +19,17 @@
             "inlineStyleLanguage": "scss",
             "assets": [
               "apps/angular-express-mongodb/src/favicon.ico",
-              "apps/angular-express-mongodb/src/assets"
+              "apps/angular-express-mongodb/src/assets",
+              {
+                "glob": "**/*",
+                "input": "./node_modules/@ant-design/icons-angular/src/inline-svg/",
+                "output": "/assets/"
+              }
             ],
-            "styles": ["apps/angular-express-mongodb/src/styles.scss"],
-            "scripts": []
+            "styles": [
+              "apps/angular-express-mongodb/src/styles/customized-ant-design/styles.less",
+              "apps/angular-express-mongodb/src/styles/styles.scss"
+            ]
           },
           "configurations": {
             "production": {

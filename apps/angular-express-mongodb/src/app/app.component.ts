@@ -1,10 +1,9 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 
 @Component({
-  selector: 'trainings-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  selector: 'aem-root',
+  template: '<router-outlet></router-outlet>'
 })
 export class AppComponent {
-  title = 'angular-express-mongodb';
 }

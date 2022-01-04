@@ -1,0 +1,16 @@
+:host {
+  nz-header { height: 52px }
+  ul { height: 52px; line-height: 28px; background: inherit }
+  .container-fluid { max-width: 1000px }
+}
+
+::ng-deep {
+  .ant-menu-item {
+    &:hover::after { border-bottom-color: white !important }
+    &.ant-menu-item-selected::after { border-bottom-color: white !important }
+  }
+  .ant-dropdown-menu-item-selected, .ant-dropdown-menu-submenu-title-selected {
+    color: white !important;
+    background-color: #898e91 !important;
+  }
+}
