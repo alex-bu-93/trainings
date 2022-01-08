@@ -14,7 +14,11 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@enums/*": ["apps/angular-express-mongodb/src/app/enums/*"],
+      "@pipes/*": ["apps/angular-express-mongodb/src/app/pipes/*"],
+      "@widgets/*": ["apps/angular-express-mongodb/src/app/widgets/*"]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }

@@ -1,0 +1,9 @@
+<textarea [value]="text" (keyup.enter)="add()"></textarea>
+<button (click)="add()">Add</button>
+
+<p></p>
+<ul>
+  <li *ngFor="let note of notes; let i=index ">
+    {{note.text}} <button (click)="remove(i)">remove</button>
+  </li>
+</ul>

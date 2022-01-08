@@ -1,1 +1,10 @@
-task one
+<h4 class="mb-4">Hello World Angular application</h4>
+
+<nz-timeline>
+  <nz-timeline-item *ngFor="let item  of items">
+    <p class="text-bold mb-1">{{item.label}}</p>
+    <span *ngIf="item.marDownIt | codeMarkdown as codeMarkdown" [innerHTML]="codeMarkdown"></span>
+  </nz-timeline-item>
+</nz-timeline>
+
+<aem-result-code-editor [codeEditorMap]="codeEditorMap"></aem-result-code-editor>

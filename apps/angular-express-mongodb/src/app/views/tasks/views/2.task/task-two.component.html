@@ -1,1 +1,14 @@
-<p>task-two works!</p>
+<h4 class="mb-4">Notes application with Angular</h4>
+
+<ng-container *ngFor="let section of sections">
+  <h6 class="mb-3">{{section.label}}</h6>
+  <nz-timeline>
+    <nz-timeline-item *ngFor="let item of section.items">
+      <p class="text-bold mb-1">{{item.label}}</p>
+      <span *ngIf="item.markDownIt | codeMarkdown as codeMarkdown" [innerHTML]="codeMarkdown"></span>
+    </nz-timeline-item>
+  </nz-timeline>
+</ng-container>
+
+
+<aem-result-code-editor [codeEditorMap]="codeEditorMap"></aem-result-code-editor>

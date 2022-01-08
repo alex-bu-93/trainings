@@ -25,12 +25,15 @@
             <ul nz-menu style="width: 120px">
               <a class="text-decoration-none" [routerLink]="['tasks', 'task-one']"><li nz-menu-item nzMatchRouter>Task 1</li></a>
               <a class="text-decoration-none" [routerLink]="['tasks', 'task-two']"><li nz-menu-item nzMatchRouter>Task 2</li></a>
+              <a class="text-decoration-none" [routerLink]="['tasks', 'task-three']"><li nz-menu-item nzMatchRouter>Task 3</li></a>
             </ul>
           </nz-dropdown-menu>
         </li>
       </ul>
   </nz-header>
-  <nz-content class="container-fluid py-2">
-    <router-outlet></router-outlet>
+  <nz-content class="overflow-auto">
+    <nz-card class="container-fluid my-3">
+      <router-outlet></router-outlet>
+    </nz-card>
   </nz-content>
 </nz-layout>

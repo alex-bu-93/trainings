@@ -1,0 +1,21 @@
+<div class="d-flex justify-content-between align-items-center">
+  <h5>Code source</h5>
+  <nz-select style="width: 200px"
+             class="mb-2"
+             [(ngModel)]="resultMode"
+             (ngModelChange)="updateOptions()">
+    <nz-option *ngFor="let option of codeEditorOptions"
+               [nzValue]="option.value"
+               [nzLabel]="'' + option.label">
+    </nz-option>
+  </nz-select>
+</div>
+
+
+<div style="height: 288px">
+  <nz-code-editor *ngIf="isEditorRendered"
+                  class="border border-light h-100"
+                  [ngModel]="codeEditorMap[resultMode].model"
+                  [nzEditorOption]="editorOption">
+  </nz-code-editor>
+</div>
