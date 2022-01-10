@@ -40,7 +40,8 @@ const ITEMS = [
     marDownIt: `name = 'John'`
   },
   {
-    label: 'Try to change the name. Check the result in browser'
+    label: 'Try to change the name. Check the result in browser',
+    marDownIt: ''
   },
 ];
 

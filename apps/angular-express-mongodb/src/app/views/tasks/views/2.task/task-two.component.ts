@@ -35,7 +35,7 @@ const SECTIONS = [
       },
       {
         label: 'Look at rendered page and check that notes list is shown',
-        markDownIt: null
+        markDownIt: ''
       }
     ]
   },
@@ -59,7 +59,7 @@ add() {
       },
       {
         label: 'Execute and look how it\'s working',
-        markDownIt: null
+        markDownIt: ''
       }
     ]
   },
@@ -82,7 +82,7 @@ add() {
       },
       {
         label: 'Check the possibility to remove notes',
-        markDownIt: null
+        markDownIt: ''
       }
     ]
   },
@@ -120,7 +120,7 @@ app.listen(8080);`
       },
       {
         label: 'Import HttpClient to notes.component.ts',
-        markDownIt: null
+        markDownIt: ''
       },
       {
         label: 'Define notesUrl',
@@ -145,7 +145,7 @@ app.listen(8080);`
       },
       {
         label: 'Check the result in browser',
-        markDownIt: null
+        markDownIt: ''
       }
     ]
   }
