@@ -4,11 +4,11 @@
   <h6 class="mb-3">{{section.label}}</h6>
   <nz-timeline>
     <nz-timeline-item *ngFor="let item of section.items">
-      <p class="text-bold mb-1">{{item.label}}</p>
-      <span *ngIf="item.markDownIt | codeMarkdown as codeMarkdown" [innerHTML]="codeMarkdown"></span>
+      <code-markdown [label]="item.label"
+                     [code]="item.markDownIt">
+      </code-markdown>
     </nz-timeline-item>
   </nz-timeline>
 </ng-container>
 
-
-<aem-result-code-editor [codeEditorMap]="codeEditorMap"></aem-result-code-editor>
+<result-code-editor [codeEditorMap]="codeEditorMap"></result-code-editor>

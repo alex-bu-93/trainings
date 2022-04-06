@@ -2,9 +2,10 @@
 
 <nz-timeline>
   <nz-timeline-item *ngFor="let item  of items">
-    <p class="text-bold mb-1">{{item.label}}</p>
-    <span *ngIf="item.marDownIt | codeMarkdown as codeMarkdown" [innerHTML]="codeMarkdown"></span>
+    <code-markdown [label]="item.label"
+                   [code]="item.marDownIt">
+    </code-markdown>
   </nz-timeline-item>
 </nz-timeline>
 
-<aem-result-code-editor [codeEditorMap]="codeEditorMap"></aem-result-code-editor>
+<result-code-editor [codeEditorMap]="codeEditorMap"></result-code-editor>

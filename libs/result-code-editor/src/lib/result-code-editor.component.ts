@@ -2,18 +2,19 @@ import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input } from '@a
 import { NzSelectOptionInterface }                                      from 'ng-zorro-antd/select';
 import { ResultMode }                                                   from './result-code-editor.utils';
 
-type Language = 'typescript' | 'html';
-type CodeEditorMap = Record<ResultMode, { language: Language, model: string }>;
+interface CodeEditorMap {
+  [key: string]: { language: string, model: string }
+}
 
 interface EditorOption {
   scrollBeyondLastLine: boolean;
   minimap: { enabled: boolean };
-  language: Language;
+  language: string;
 }
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
-  selector: 'aem-result-code-editor',
+  selector: 'result-code-editor',
   templateUrl: './result-code-editor.component.html'
 })
 export class ResultCodeEditorComponent {
@@ -22,7 +23,6 @@ export class ResultCodeEditorComponent {
   codeEditorOptions!: NzSelectOptionInterface[];
   private _codeEditorMap!: CodeEditorMap;
   @Input() set codeEditorMap(codeEditorMap: CodeEditorMap) {
-    console.log(codeEditorMap);
     this._codeEditorMap = codeEditorMap;
     this.codeEditorOptions = Object.keys(codeEditorMap).map(x => ({label: x, value: x}));
     this.resultMode = this.codeEditorOptions[0]?.value;

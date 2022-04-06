@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { ResultMode }                         from '@widgets/result-code-editor';
+import { ResultMode }                         from '@trainings/result-code-editor';
 
 const SECTIONS = [
   {
@@ -254,7 +254,6 @@ export class NotesComponent {
   }
 };
 
-
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'aem-task-two',
@@ -263,6 +262,6 @@ export class NotesComponent {
 export class TaskTwoComponent {
 
   sections = SECTIONS;
-  codeEditorMap: any = CODE_EDITOR_MAP;
+  codeEditorMap = CODE_EDITOR_MAP;
 
 }

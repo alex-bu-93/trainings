@@ -1,7 +1,7 @@
 import { NgModule }               from '@angular/core';
 import { CommonModule }           from '@angular/common';
-import { ResultCodeEditorModule } from '@widgets/result-code-editor';
-import { CodeMarkdownPipeModule } from '@pipes/code-markdown';
+import { CodeMarkdownModule }     from '@trainings/code-markdown';
+import { ResultCodeEditorModule } from '@trainings/result-code-editor';
 import { NzTimelineModule }       from 'ng-zorro-antd/timeline';
 import { TaskOneComponent }       from './task-one.component';
 
@@ -12,7 +12,7 @@ const ANT_DESIGN_MODULES = [
 @NgModule({
   imports: [
     CommonModule,
-    CodeMarkdownPipeModule,
+    CodeMarkdownModule,
     ResultCodeEditorModule,
     ANT_DESIGN_MODULES
   ],

@@ -137,6 +137,32 @@
       "tags": [],
       "implicitDependencies": ["angular-express-mongodb"]
     },
+    "code-markdown": {
+      "projectType": "library",
+      "root": "libs/code-markdown",
+      "sourceRoot": "libs/code-markdown/src",
+      "prefix": "trainings",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/code-markdown"],
+          "options": {
+            "jestConfig": "libs/code-markdown/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/code-markdown/src/**/*.ts",
+              "libs/code-markdown/src/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
+    },
     "labguide": {
       "projectType": "application",
       "root": "apps/labguide",
@@ -258,6 +284,32 @@
       },
       "tags": [],
       "implicitDependencies": ["labguide"]
+    },
+    "result-code-editor": {
+      "projectType": "library",
+      "root": "libs/result-code-editor",
+      "sourceRoot": "libs/result-code-editor/src",
+      "prefix": "trainings",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/result-code-editor"],
+          "options": {
+            "jestConfig": "libs/result-code-editor/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/result-code-editor/src/**/*.ts",
+              "libs/result-code-editor/src/**/*.html"
+            ]
+          }
+        }
+      },
+      "tags": []
     }
   }
 }

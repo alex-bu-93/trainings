@@ -1,5 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { ResultMode }                         from '@widgets/result-code-editor';
+import { ResultMode }                         from '@trainings/result-code-editor';
 
 const ITEMS = [
   {
@@ -96,6 +96,6 @@ export class AppModule {
 export class TaskOneComponent {
 
   items = ITEMS;
-  codeEditorMap: any = CODE_EDITOR_MAP;
+  codeEditorMap = CODE_EDITOR_MAP;
 
 }
