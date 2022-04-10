@@ -107,36 +107,6 @@
       },
       "tags": []
     },
-    "angular-express-mongodb-e2e": {
-      "root": "apps/angular-express-mongodb-e2e",
-      "sourceRoot": "apps/angular-express-mongodb-e2e/src",
-      "projectType": "application",
-      "architect": {
-        "e2e": {
-          "builder": "@nrwl/cypress:cypress",
-          "options": {
-            "cypressConfig": "apps/angular-express-mongodb-e2e/cypress.json",
-            "devServerTarget": "angular-express-mongodb:serve:development"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "angular-express-mongodb:serve:production"
-            }
-          }
-        },
-        "lint": {
-          "builder": "@nrwl/linter:eslint",
-          "outputs": ["{options.outputFile}"],
-          "options": {
-            "lintFilePatterns": [
-              "apps/angular-express-mongodb-e2e/**/*.{js,ts}"
-            ]
-          }
-        }
-      },
-      "tags": [],
-      "implicitDependencies": ["angular-express-mongodb"]
-    },
     "code-markdown": {
       "projectType": "library",
       "root": "libs/code-markdown",
@@ -183,7 +153,10 @@
               "apps/labguide/src/favicon.ico",
               "apps/labguide/src/assets"
             ],
-            "styles": ["apps/labguide/src/styles.scss"],
+            "styles": [
+              "apps/labguide/src/styles/customized-ant-design/styles.less",
+              "apps/labguide/src/styles/styles.scss"
+            ],
             "scripts": []
           },
           "configurations": {
@@ -257,33 +230,57 @@
       },
       "tags": []
     },
-    "labguide-e2e": {
-      "root": "apps/labguide-e2e",
-      "sourceRoot": "apps/labguide-e2e/src",
+    "labguide-server": {
+      "root": "apps/labguide-server",
+      "sourceRoot": "apps/labguide-server/src",
       "projectType": "application",
       "architect": {
-        "e2e": {
-          "builder": "@nrwl/cypress:cypress",
+        "build": {
+          "builder": "@nrwl/node:webpack",
+          "outputs": ["{options.outputPath}"],
           "options": {
-            "cypressConfig": "apps/labguide-e2e/cypress.json",
-            "devServerTarget": "labguide:serve:development"
+            "outputPath": "dist/apps/labguide-server",
+            "main": "apps/labguide-server/src/main.ts",
+            "tsConfig": "apps/labguide-server/tsconfig.app.json",
+            "assets": ["apps/labguide-server/src/assets"]
           },
           "configurations": {
             "production": {
-              "devServerTarget": "labguide:serve:production"
+              "optimization": true,
+              "extractLicenses": true,
+              "inspect": false,
+              "fileReplacements": [
+                {
+                  "replace": "apps/labguide-server/src/environments/environment.ts",
+                  "with": "apps/labguide-server/src/environments/environment.prod.ts"
+                }
+              ]
             }
+          }
+        },
+        "serve": {
+          "builder": "@nrwl/node:node",
+          "options": {
+            "buildTarget": "labguide-server:build"
           }
         },
         "lint": {
           "builder": "@nrwl/linter:eslint",
           "outputs": ["{options.outputFile}"],
           "options": {
-            "lintFilePatterns": ["apps/labguide-e2e/**/*.{js,ts}"]
+            "lintFilePatterns": ["apps/labguide-server/**/*.ts"]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/labguide-server"],
+          "options": {
+            "jestConfig": "apps/labguide-server/jest.config.js",
+            "passWithNoTests": true
           }
         }
       },
-      "tags": [],
-      "implicitDependencies": ["labguide"]
+      "tags": []
     },
     "result-code-editor": {
       "projectType": "library",

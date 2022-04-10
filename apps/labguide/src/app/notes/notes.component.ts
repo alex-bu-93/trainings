@@ -1,45 +1,42 @@
-import { Component }  from '@angular/core';
-import { HttpClient } from '@angular/common/http';
-
-interface Note {
-  text: string;
-}
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
+import { FormControl, FormGroup, Validators }                    from '@angular/forms';
+import { NzButtonComponent }                                     from 'ng-zorro-antd/button';
+import { finalize, tap }                                         from 'rxjs';
+import { NotesService }                                          from './notes.service';
 
 @Component({
+  changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'app-notes',
-  templateUrl: './notes.component.html',
-  styleUrls: ['./notes.component.css']
+  templateUrl: './notes.component.html'
 })
 export class NotesComponent {
 
-  private notesUrl = 'http://localhost:8080/notes';  // URL to web api
+  notes$ = this.notesService.getNotes$();
 
-  text: string;
-  notes: Note[] = [
-    {text: 'Note one'},
-    {text: 'Note two'}
-  ];
+  noteFg = new FormGroup({
+    text: new FormControl(null, Validators.required)
+  });
 
   constructor(
-    private http: HttpClient
+    private cdr: ChangeDetectorRef,
+    private notesService: NotesService
   ) {
-    this.getNotes().then(notes => {
-      this.notes = notes
-      console.log(notes);
-    });
   }
 
-  getNotes(): Promise<Note[]> {
-    return this.http.get<Note[]>(this.notesUrl).toPromise();
-  }
-
-  add() {
-    const note = {text: this.text};
-    this.notes.push(note);
-    this.text = '';
-  }
-
-  remove(idx: number) {
-    this.notes.splice(idx, 1);
+  onPostNote(postNoteBtn: NzButtonComponent) {
+    if (this.noteFg.valid) {
+      postNoteBtn['isLoading'] = true;
+      postNoteBtn['postNote$'] = this.notesService.postNote$(this.noteFg.value).pipe(
+        tap(() => {
+          this.notes$ = this.notesService.getNotes$();
+          this.noteFg.reset();
+        }),
+        finalize(() => {
+          postNoteBtn['postNote$'] = null;
+          postNoteBtn['isLoading'] = false;
+          this.cdr.markForCheck();
+        })
+      );
+    } else this.noteFg.markAllAsTouched();
   }
 }

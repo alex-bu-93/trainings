@@ -1,20 +1,20 @@
 import { BrowserModule }    from '@angular/platform-browser';
 import { NgModule }         from '@angular/core';
-import { FormsModule }      from '@angular/forms';
 import { HttpClientModule } from '@angular/common/http';
-import { NotesComponent }   from './notes/notes.component';
+import { NotesModule }      from './notes';
 import { AppComponent }     from './app.component';
+
+const BROWSER_MODULES = [
+  BrowserModule
+]
 
 @NgModule({
   imports: [
-    BrowserModule,
-    FormsModule,
-    HttpClientModule
+    NotesModule,
+    HttpClientModule,
+    BROWSER_MODULES
   ],
-  declarations: [
-    AppComponent,
-    NotesComponent
-  ],
+  declarations: [AppComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule {

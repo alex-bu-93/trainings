@@ -1,9 +1,20 @@
-<textarea [value]="text" (keyup.enter)="add()"></textarea>
-<button (click)="add()">Add</button>
+<ng-container *ngIf="notes$ | async as notes">
 
-<p></p>
-<ul>
-  <li *ngFor="let note of notes; let i=index ">
-    {{note.text}} <button (click)="remove(i)">remove</button>
-  </li>
-</ul>
+  <form [formGroup]="noteFg" (ngSubmit)="onPostNote(postNoteBtn)">
+    <input formControlName="text"/>
+    <button #postNoteBtn
+            nz-button type="submit"
+            [nzLoading]="postNoteBtn['isLoading']">
+      Post Note
+      {{postNoteBtn['postNote$'] | async}}
+    </button>
+  </form>
+
+  <ul>
+    <li *ngFor="let note of notes let index = index">
+      {{note.text}}
+      <button (click)="notes.splice(index, 1)">Remove</button>
+    </li>
+  </ul>
+
+</ng-container>
