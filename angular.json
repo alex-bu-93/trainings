@@ -41,8 +41,8 @@
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumWarning": "3mb",
+                  "maximumError": "5mb"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -156,16 +156,22 @@
             "styles": [
               "apps/labguide/src/styles/customized-ant-design/styles.less",
               "apps/labguide/src/styles/styles.scss"
-            ],
-            "scripts": []
+            ]
           },
           "configurations": {
             "production": {
+              "assets": [
+                {
+                  "glob": "**/*",
+                  "input": "./node_modules/@ant-design/icons-angular/src/inline-svg/",
+                  "output": "/assets/"
+                }
+              ],
               "budgets": [
                 {
                   "type": "initial",
-                  "maximumWarning": "500kb",
-                  "maximumError": "1mb"
+                  "maximumWarning": "3mb",
+                  "maximumError": "5mb"
                 },
                 {
                   "type": "anyComponentStyle",
@@ -227,8 +233,7 @@
             "passWithNoTests": true
           }
         }
-      },
-      "tags": []
+      }
     },
     "labguide-server": {
       "root": "apps/labguide-server",

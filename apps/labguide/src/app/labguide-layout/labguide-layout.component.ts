@@ -2,8 +2,8 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
-  selector: 'labguide-root',
-  template: '<router-outlet></router-outlet>'
+  selector: 'labguide-layout',
+  templateUrl: './labguide-layout.component.html'
 })
-export class AppComponent {
+export class LabguideLayoutComponent {
 }

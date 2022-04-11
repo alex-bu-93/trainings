@@ -17,4 +17,8 @@ export class NotesService {
   postNote$(note: Note) {
     return this.http.post('notes', note);
   }
+
+  deleteNote$(note: Note) {
+    return this.http.delete('notes', {body: note});
+  }
 }

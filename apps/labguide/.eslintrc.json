@@ -13,7 +13,7 @@
           "error",
           {
             "type": "attribute",
-            "prefix": "trainings",
+            "prefix": "labguide",
             "style": "camelCase"
           }
         ],
@@ -21,7 +21,7 @@
           "error",
           {
             "type": "element",
-            "prefix": "trainings",
+            "prefix": "labguide",
             "style": "kebab-case"
           }
         ]
