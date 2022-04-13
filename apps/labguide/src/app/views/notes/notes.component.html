@@ -14,12 +14,12 @@
   </button>
 </form>
 
-<nz-spin *ngLet="notes$ | async as notes" [nzSpinning]="isNotesLoading" [nzDelay]="300">
+<trainings-request-wrapper #notesRs [request$]="notes$">
   <ul nz-list nzBordered nzSize="small"
       nzNoResult="No notes to display"
-      [style.min-height.px]="isNotesLoading || !notes?.length  ? 90 : 0"
-      [nzDataSource]="notes">
-    <li *ngFor="let note of notes" nz-list-item nzNoFlex>
+      style="min-height: 90px"
+      [nzDataSource]="notesRs.data">
+    <li *ngFor="let note of notesRs.data" nz-list-item nzNoFlex>
       {{ note.text }}
       <ul nz-list-item-actions>
         <nz-list-item-action>
@@ -34,4 +34,4 @@
       </ul>
     </li>
   </ul>
-</nz-spin>
+</trainings-request-wrapper>

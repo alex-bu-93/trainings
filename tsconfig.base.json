@@ -15,11 +15,9 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@enums/*": ["apps/angular-express-mongodb/src/app/enums/*"],
-      "@pipes/*": ["apps/angular-express-mongodb/src/app/pipes/*"],
       "@trainings/code-markdown": ["libs/code-markdown/src/index.ts"],
-      "@trainings/result-code-editor": ["libs/result-code-editor/src/index.ts"],
-      "@widgets/*": ["apps/angular-express-mongodb/src/app/widgets/*"]
+      "@trainings/request-wrapper": ["libs/request-wrapper/src/index.ts"],
+      "@trainings/result-code-editor": ["libs/result-code-editor/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

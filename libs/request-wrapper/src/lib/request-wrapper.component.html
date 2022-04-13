@@ -1,0 +1,17 @@
+<ng-container *ngIf="request$ | withLoading | async as request">
+  <nz-result *ngIf="request.err else contentTmp"
+             nzStatus="error"
+             nzTitle="Looks like something went wrong"
+             [nzSubTitle]="request.err?.message">
+    <div nz-result-extra>
+      <button nz-button class="text-primary"
+              (click)="request$ = getUpdatedStream(request$)"> Retry
+      </button>
+    </div>
+  </nz-result>
+  <ng-template #contentTmp>
+    <nz-spin [nzSpinning]="request.isLoading">
+      <ng-content></ng-content>
+    </nz-spin>
+  </ng-template>
+</ng-container>

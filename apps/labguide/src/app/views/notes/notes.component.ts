@@ -12,8 +12,7 @@ import { Note }                                                  from './notes.i
 })
 export class NotesComponent {
 
-  isNotesLoading: boolean;
-  notes$ = this.getNotes$();
+  notes$ = this.notesService.getNotes$();
 
   noteFg = new FormGroup({
     text: new FormControl(null, Validators.required)
@@ -25,22 +24,12 @@ export class NotesComponent {
   ) {
   }
 
-  getNotes$() {
-    this.isNotesLoading = true;
-    return this.notesService.getNotes$().pipe(
-      finalize(() => {
-        this.isNotesLoading = false;
-        this.cdr.markForCheck();
-      })
-    );
-  }
-
   onPostNote(btn: NzButtonComponent) {
     if (this.noteFg.valid) {
       btn['isLoading'] = true;
       btn['request$'] = this.notesService.postNote$(this.noteFg.value).pipe(
         tap(() => {
-          this.notes$ = this.getNotes$();
+          this.notes$ = this.notesService.getNotes$();
           this.noteFg.reset();
           document.getElementById('postNoteTxtArea')?.focus();
         }),
@@ -56,7 +45,7 @@ export class NotesComponent {
   onDeleteNote(btn: NzButtonComponent, note: Note) {
     btn['isLoading'] = true;
     btn['request$'] = this.notesService.deleteNote$(note).pipe(
-      tap(() => this.notes$ = this.getNotes$()),
+      tap(() => this.notes$ = this.notesService.getNotes$()),
       finalize(() => {
         btn['request$'] = null;
         btn['isLoading'] = false;

@@ -1,11 +1,13 @@
 import * as express              from 'express';
 import * as path                 from 'path';
 import * as bodyParser           from 'body-parser';
+import * as cors                 from 'cors';
 import { MongoClient, ObjectId } from 'mongodb'
 
 const app = express();
-app.use(express.static(path.join(__dirname, '../../../dist/apps/labguide')));
 
+app.use(cors());
+app.use(express.static(path.join(__dirname, '../../../dist/apps/labguide')));
 app.use(bodyParser.urlencoded({extended: true}));
 app.use(bodyParser.json());
 

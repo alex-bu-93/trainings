@@ -151,7 +151,12 @@
             "inlineStyleLanguage": "scss",
             "assets": [
               "apps/labguide/src/favicon.ico",
-              "apps/labguide/src/assets"
+              "apps/labguide/src/assets",
+              {
+                "glob": "**/*",
+                "input": "./node_modules/@ant-design/icons-angular/src/inline-svg/",
+                "output": "/assets/"
+              }
             ],
             "styles": [
               "apps/labguide/src/styles/customized-ant-design/styles.less",
@@ -282,6 +287,32 @@
           "options": {
             "jestConfig": "apps/labguide-server/jest.config.js",
             "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
+    "request-wrapper": {
+      "projectType": "library",
+      "root": "libs/request-wrapper",
+      "sourceRoot": "libs/request-wrapper/src",
+      "prefix": "trainings",
+      "architect": {
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/libs/request-wrapper"],
+          "options": {
+            "jestConfig": "libs/request-wrapper/jest.config.js",
+            "passWithNoTests": true
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "libs/request-wrapper/src/**/*.ts",
+              "libs/request-wrapper/src/**/*.html"
+            ]
           }
         }
       },
