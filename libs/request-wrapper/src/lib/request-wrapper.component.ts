@@ -1,26 +1,41 @@
-import { ChangeDetectionStrategy, Component, EventEmitter, Input, OnChanges, Output } from '@angular/core';
-import { Observable, throwError }                                                     from 'rxjs';
-import { catchError, tap }                                                            from 'rxjs/operators';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnChanges, } from '@angular/core';
+import { HttpErrorResponse }                from '@angular/common/http';
+import { finalize, Observable, throwError } from 'rxjs';
+import { catchError, tap }                  from 'rxjs/operators';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
   selector: 'trainings-request-wrapper',
-  templateUrl: './request-wrapper.component.html'
+  templateUrl: './request-wrapper.component.html',
+  styles: [`nz-spin { min-height: 100px }`]
 })
 export class RequestWrapperComponent<T = any> implements OnChanges {
 
-  @Input() request$: Observable<T> | undefined;
-  @Output() response = new EventEmitter<T | null | undefined>();
+  @Input() request$: Observable<T>;
 
-  public data: T | null | undefined;
+  public data: T;
 
-  ngOnChanges() {
-    this.request$ = this.getUpdatedStream(this.request$);
+  isLoading: boolean;
+  isFirstDataLoaded: boolean;
+
+  error: string;
+
+  constructor(
+    private cdr: ChangeDetectorRef
+  ) {
   }
 
-  getUpdatedStream(request$: Observable<T> | undefined): Observable<T> | undefined {
+  ngOnChanges() {
+    this.request$ = this.getUpdatedRequest(this.request$);
+  }
+
+  getUpdatedRequest(request$: Observable<T>): Observable<T> {
+    this.error = null;
+    this.isLoading = true;
     return request$?.pipe(
-      tap(data => { this.data = data; this.response.emit(this.data); }),
-      catchError(res => { this.data = null; this.response.emit(this.data); return throwError(res); }));
+      tap(data => { this.data = data; this.isFirstDataLoaded = true; }),
+      catchError((err: HttpErrorResponse) => { this.error = err.message; return throwError(() => err); }),
+      finalize(() => { this.isLoading = false; this.cdr.markForCheck(); })
+    );
   }
 }

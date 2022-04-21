@@ -24,6 +24,8 @@ export class NotesComponent {
   ) {
   }
 
+  trackById = (i, note: Note) => note._id;
+
   onPostNote(btn: NzButtonComponent) {
     if (this.noteFg.valid) {
       btn['isLoading'] = true;
