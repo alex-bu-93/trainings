@@ -1,0 +1,45 @@
+<trainings-request-wrapper #notesRs [request$]="notes$">
+  <p class="mb-1">Section: {{section.title}}</p>
+  <nz-card nzSize="small" class="mb-3" >
+    <ng-container *ngIf="notesRs.data?.length else noNotesTmp">
+      <div *ngFor="let note of notesRs.data
+                 let last = last;
+                 trackBy: trackById"
+           class="d-flex">
+        <p nz-typography nzEllipsis
+           class="mr-3"
+           [class.mb-0]="last"
+           [nzEllipsisRows]="2"> {{note.text}}
+        </p>
+        <button #deleteNoteBtn
+                nz-button nzDanger nzSize="small"
+                class="btn-outline-danger ml-auto"
+                [nzLoading]="deleteNoteBtn['isLoading']"
+                (click)="onDeleteNote(deleteNoteBtn, note)">
+          <i nz-icon nzType="delete"></i> Remove
+          {{deleteNoteBtn['request$'] | async}}
+        </button>
+      </div>
+    </ng-container>
+  </nz-card>
+  <form class="mb-3" [formGroup]="noteFg" (ngSubmit)="onPostNote(postNoteBtn)">
+    <textarea id="postNoteTxtArea"
+              nz-input placeholder="Input note text ..."
+              formControlName="text"
+              class="mb-3"
+              [nzAutosize]="{ minRows: 3, maxRows: 5 }">
+    </textarea>
+    <button #postNoteBtn
+            nz-button nzType="primary"
+            type="submit"
+            [nzLoading]="postNoteBtn['isLoading']">
+      <i nz-icon nzType="arrow-up"></i> Post Note
+      {{postNoteBtn['request$'] | async}}
+    </button>
+  </form>
+</trainings-request-wrapper>
+
+
+<ng-template #noNotesTmp>
+  <p class="text-center mb-0">No notes added to the section</p>
+</ng-template>

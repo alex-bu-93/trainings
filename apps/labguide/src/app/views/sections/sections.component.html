@@ -1,0 +1,78 @@
+<trainings-request-wrapper #sectionsRs [request$]="sections$">
+  <div *ngIf="sectionsRs.data?.length else noSectionsTmp" class="row">
+    <div class="col-3 bg-light">
+      <ng-container [ngTemplateOutlet]="addSectionBtnTmp" [ngTemplateOutletContext]="{isBlock: true}"></ng-container>
+      <nz-tree nzShowLine
+               class="p-3"
+               [nzData]="sectionsRs.data"
+               [nzTreeTemplate]="nzTreeTemplate"
+               [nzExpandedKeys]="expandedKeys"
+               (nzClick)="selectSection($event.nodes[0])">
+        <ng-template #nzTreeTemplate let-node>
+          <div class="d-flex align-items-center text-nowrap" [class.text-white]="node.isSelected">
+            <i nz-icon
+               class="mr-1"
+               [nzType]="node.isLeaf ? null : node.isExpanded ? 'folder-open' : 'folder'"
+               (click)="!node.isLeaf && openFolder(node)">
+            </i>
+            <span style="transition: color 500ms">{{node.title}}</span>
+            <div class="ml-auto">
+              <button nz-button nzSize="small"
+                      style="background-color: inherit"
+                      class="border-0 ml-auto"
+                      [class.text-white]="node.isSelected"
+                      (click)="$event.stopPropagation(); isSubmitSectionModalVisible = true; sectionFg.patchValue({parentId: node.origin._id})">
+                <i nz-icon nzType="plus"></i>
+              </button>
+              <button #deleteNoteBtn
+                      nz-button nzDanger nzSize="small"
+                      style="background-color: inherit"
+                      class="border-0 ml-auto"
+                      [class.text-white]="node.isSelected"
+                      [nzLoading]="deleteNoteBtn['isLoading']"
+                      (click)="$event.stopPropagation(); deleteNoteBtn['request$'] = getDeleteRq$(deleteNoteBtn, node)">
+                <i nz-icon nzType="delete"></i>
+                <ng-container *ngIf="deleteNoteBtn['request$'] | async"></ng-container>
+              </button>
+            </div>
+          </div>
+        </ng-template>
+      </nz-tree>
+    </div>
+    <div class="col-9">
+      <labguide-notes *ngIf="section" [section]="section"></labguide-notes>
+    </div>
+  </div>
+</trainings-request-wrapper>
+
+
+<ng-template #noSectionsTmp>
+  <p class="text-center mt-5">No Sections have been added</p>
+  <div class="d-flex justify-content-center">
+    <ng-container [ngTemplateOutlet]="addSectionBtnTmp"></ng-container>
+  </div>
+</ng-template>
+<ng-template #addSectionBtnTmp let-isBlock="isBlock">
+  <button nz-button nzType="primary"
+          class="mb-3"
+          [nzBlock]="isBlock"
+          (click)="isSubmitSectionModalVisible = true">
+    <i nz-icon nzType="plus"></i> Section
+    <nz-modal #sectionModal
+              nzTitle="New Section"
+              nzOkText="Submit"
+              [nzCancelText]="null"
+              [nzStyle]="{top: '20px'}"
+              [nzOkLoading]="sectionModal['isLoading']"
+              [(nzVisible)]="isSubmitSectionModalVisible"
+              (nzOnOk)="sectionFg.valid ? (sectionModal['request'] = getPostRq$(sectionModal)) : sectionFg.markAllAsTouched()"
+              (nzOnCancel)="isSubmitSectionModalVisible = false">
+      <ng-container *ngIf="sectionModal['request'] | async"></ng-container>
+      <form *nzModalContent [formGroup]="sectionFg">
+        <input nz-input
+               placeholder="Input section title ..."
+               formControlName="title"/>
+      </form>
+    </nz-modal>
+  </button>
+</ng-template>

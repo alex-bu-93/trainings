@@ -33,9 +33,17 @@ export class RequestWrapperComponent<T = any> implements OnChanges {
     this.error = null;
     this.isLoading = true;
     return request$?.pipe(
-      tap(data => { this.data = data; this.isFirstDataLoaded = true; }),
-      catchError((err: HttpErrorResponse) => { this.error = err.message; return throwError(() => err); }),
-      finalize(() => { this.isLoading = false; this.cdr.markForCheck(); })
+      tap(data => {
+        this.data = data;
+        this.isFirstDataLoaded = true;
+        this.isLoading = false;
+      }),
+      catchError((err: HttpErrorResponse) => {
+        this.error = err.message;
+        this.isLoading = false;
+        this.cdr.markForCheck();
+        return throwError(() => err);
+      })
     );
   }
 }

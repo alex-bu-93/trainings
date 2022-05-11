@@ -1,25 +1,23 @@
 import { NgModule }                                      from '@angular/core';
 import { RouterModule, Routes }                          from '@angular/router';
+import { SectionsComponent, SectionsModule }             from './views/sections';
 import { LabguideLayoutComponent, LabguideLayoutModule } from './labguide-layout';
-import { NotesComponent, NotesModule }                   from './views/notes';
 
 const PAGES_MODULES = [
   LabguideLayoutModule,
-  NotesModule
+  SectionsModule
 ];
 const routes: Routes = [
   {
     path: '',
     component: LabguideLayoutComponent,
-    children: [
-      {path: '', component: NotesComponent}
-    ]
+    children: [{path: '', component: SectionsComponent}]
   }
 ]
 
 @NgModule({
   imports: [PAGES_MODULES, RouterModule.forRoot(routes)],
-  exports: [PAGES_MODULES, RouterModule]
+  exports: [RouterModule]
 })
 export class AppRoutingModule {
 }

@@ -8,7 +8,6 @@ import { en_US, NZ_I18N }          from 'ng-zorro-antd/i18n';
 import { NzMessageModule }         from 'ng-zorro-antd/message';
 import { AppComponent }            from './app.component';
 import { AppRoutingModule }        from './app-routing.module';
-import { FormsModule } from '@angular/forms';
 
 registerLocaleData(en);
 
@@ -26,8 +25,6 @@ const ANT_DESIGN_MODULES = [
     HttpClientModule,
     BROWSER_MODULES,
     ANT_DESIGN_MODULES,
-    FormsModule,
-    BrowserAnimationsModule
   ],
   providers: [
     {provide: NZ_I18N, useValue: en_US}
