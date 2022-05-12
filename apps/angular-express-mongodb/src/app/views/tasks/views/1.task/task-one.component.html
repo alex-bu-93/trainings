@@ -2,10 +2,10 @@
 
 <nz-timeline>
   <nz-timeline-item *ngFor="let item  of items">
-    <code-markdown [label]="item.label"
-                   [code]="item.marDownIt">
-    </code-markdown>
+    <trainings-code-markdown [label]="item.label"
+                             [code]="item.marDownIt">
+    </trainings-code-markdown>
   </nz-timeline-item>
 </nz-timeline>
 
-<result-code-editor [codeEditorMap]="codeEditorMap"></result-code-editor>
+<trainings-result-code-editor [codeEditorMap]="codeEditorMap"></trainings-result-code-editor>

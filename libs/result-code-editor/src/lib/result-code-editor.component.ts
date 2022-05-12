@@ -14,7 +14,7 @@ interface EditorOption {
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
-  selector: 'result-code-editor',
+  selector: 'trainings-result-code-editor',
   templateUrl: './result-code-editor.component.html'
 })
 export class ResultCodeEditorComponent {

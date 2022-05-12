@@ -1,7 +1,7 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnChanges, } from '@angular/core';
-import { HttpErrorResponse }                from '@angular/common/http';
-import { finalize, Observable, throwError } from 'rxjs';
-import { catchError, tap }                  from 'rxjs/operators';
+import { HttpErrorResponse }                                                        from '@angular/common/http';
+import { Observable, throwError }                                                   from 'rxjs';
+import { catchError, tap }                                                          from 'rxjs/operators';
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -9,7 +9,7 @@ import { catchError, tap }                  from 'rxjs/operators';
   templateUrl: './request-wrapper.component.html',
   styles: [`nz-spin { min-height: 100px }`]
 })
-export class RequestWrapperComponent<T = any> implements OnChanges {
+export class RequestWrapperComponent<T> implements OnChanges {
 
   @Input() request$: Observable<T>;
 
