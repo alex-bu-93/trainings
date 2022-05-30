@@ -1,4 +1,4 @@
-<trainings-request-wrapper #notesRs [request$]="notes$">
+<trainings-request-wrapper *ngIf="section" #notesRs [request$]="notes$">
   <p class="mb-1">Section: {{section.title}}</p>
   <nz-card nzSize="small" class="mb-3" >
     <ng-container *ngIf="notesRs.data?.length else noNotesTmp">
@@ -32,7 +32,8 @@
     <button #postNoteBtn
             nz-button nzType="primary"
             type="submit"
-            [nzLoading]="postNoteBtn['isLoading']">
+            [nzLoading]="postNoteBtn['isLoading']"
+            (click)="onPostNote(postNoteBtn)">
       <i nz-icon nzType="arrow-up"></i> Post Note
       {{postNoteBtn['request$'] | async}}
     </button>

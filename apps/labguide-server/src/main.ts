@@ -2,7 +2,7 @@ import * as express              from 'express';
 import * as path                 from 'path';
 import * as bodyParser           from 'body-parser';
 import * as cors                 from 'cors';
-import { MongoClient, ObjectId } from 'mongodb'
+import { MongoClient, ObjectId } from 'mongodb';
 
 const app = express();
 
@@ -39,7 +39,6 @@ app.post('/sections', async (req, res) => {
 });
 
 app.delete('/sections', async (req, res) => {
-
   const sections = await mongo.db('labguide').collection('sections').find().toArray();
   const removedSectionsIds = getRemovedSectionsIds(req.query._id as string, sections);
   const removedSectionsObjectIds = removedSectionsIds.map(id => new ObjectId(id))

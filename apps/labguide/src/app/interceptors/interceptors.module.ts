@@ -1,6 +1,6 @@
 import { NgModule }                            from '@angular/core';
 import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http';
-import { ApiInterceptor }                      from './api/api.interceptor';
+import { ApiInterceptor }                      from './api';
 
 @NgModule({
   imports: [HttpClientModule],
