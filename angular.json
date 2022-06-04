@@ -133,6 +133,108 @@
       },
       "tags": []
     },
+    "interview-tasks": {
+      "projectType": "application",
+      "root": "apps/interview-tasks",
+      "sourceRoot": "apps/interview-tasks/src",
+      "prefix": "trainings",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/interview-tasks",
+            "index": "apps/interview-tasks/src/index.html",
+            "main": "apps/interview-tasks/src/main.ts",
+            "polyfills": "apps/interview-tasks/src/polyfills.ts",
+            "tsConfig": "apps/interview-tasks/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "apps/interview-tasks/src/favicon.ico",
+              "apps/interview-tasks/src/assets",
+              {
+                "glob": "**/*",
+                "input": "./node_modules/@ant-design/icons-angular/src/inline-svg/",
+                "output": "/assets/"
+              }
+            ],
+            "styles": [
+              "apps/interview-tasks/src/styles/customized-ant-design/styles.less",
+              "apps/interview-tasks/src/styles/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "apps/interview-tasks/src/environments/environment.ts",
+                  "with": "apps/interview-tasks/src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "interview-tasks:build:production"
+            },
+            "development": {
+              "browserTarget": "interview-tasks:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "interview-tasks:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/interview-tasks/src/**/*.ts",
+              "apps/interview-tasks/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/interview-tasks"],
+          "options": {
+            "jestConfig": "apps/interview-tasks/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
+    },
     "labguide": {
       "projectType": "application",
       "root": "apps/labguide",
