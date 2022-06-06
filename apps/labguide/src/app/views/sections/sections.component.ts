@@ -16,11 +16,12 @@ import { Section }                                                          from
 })
 export class SectionsComponent {
 
-  @ViewChild(NzTreeComponent) treeComponent: NzTreeComponent;
   @ViewChild(RequestWrapperComponent) sectionsRW: RequestWrapperComponent<Section[]>;
+  @ViewChild(NzTreeComponent) treeComponent: NzTreeComponent;
 
-  sections$ = this.getSections$();
   section: Section;
+  sections$ = this.getSections$();
+
   sectionFg = new FormGroup({
     _id: new FormControl(),
     title: new FormControl(null, Validators.required),

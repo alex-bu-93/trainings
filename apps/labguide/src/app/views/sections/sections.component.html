@@ -1,6 +1,6 @@
 <trainings-request-wrapper [request$]="sections$">
-  <div *ngIf="sectionsRW?.data?.length else noSectionsTmp" class="row">
-    <div class="col-3 bg-light">
+  <div *ngIf="sectionsRW?.data?.length else noSectionsTmp" class="d-flex">
+    <div class="w-25 mr-3">
       <ng-container [ngTemplateOutlet]="addSectionBtnTmp"
                     [ngTemplateOutletContext]="{isBlock: true}">
       </ng-container>
@@ -41,7 +41,7 @@
         </ng-template>
       </nz-tree>
     </div>
-    <div class="col-9">
+    <div class="flex-grow-1">
       <labguide-notes *ngIf="section" [section]="section"></labguide-notes>
     </div>
   </div>

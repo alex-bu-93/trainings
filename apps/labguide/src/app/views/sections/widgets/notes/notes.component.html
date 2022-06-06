@@ -1,5 +1,5 @@
 <trainings-request-wrapper *ngIf="section" #notesRs [request$]="notes$">
-  <p class="mb-1">Section: {{section.title}}</p>
+  <p class="mb-1">{{section.title}}</p>
   <nz-card nzSize="small" class="mb-3" >
     <ng-container *ngIf="notesRs.data?.length else noNotesTmp">
       <div *ngFor="let note of notesRs.data
@@ -22,7 +22,7 @@
       </div>
     </ng-container>
   </nz-card>
-  <form class="mb-3" [formGroup]="noteFg" (ngSubmit)="onPostNote(postNoteBtn)">
+  <form class="mb-3" [formGroup]="noteFg">
     <textarea id="postNoteTxtArea"
               nz-input placeholder="Input note text ..."
               formControlName="text"

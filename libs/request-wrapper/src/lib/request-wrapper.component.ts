@@ -1,6 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, Input, OnChanges, } from '@angular/core';
 import { HttpErrorResponse }                                                        from '@angular/common/http';
-import { Observable, throwError }                                                   from 'rxjs';
+import { finalize, Observable, throwError }                                         from 'rxjs';
 import { catchError, tap }                                                          from 'rxjs/operators';
 
 @Component({
@@ -36,13 +36,14 @@ export class RequestWrapperComponent<T> implements OnChanges {
       tap(data => {
         this.data = data;
         this.isFirstDataLoaded = true;
-        this.isLoading = false;
       }),
       catchError((err: HttpErrorResponse) => {
         this.error = err.message;
+        return throwError(() => err);
+      }),
+      finalize(() => {
         this.isLoading = false;
         this.cdr.markForCheck();
-        return throwError(() => err);
       })
     );
   }
