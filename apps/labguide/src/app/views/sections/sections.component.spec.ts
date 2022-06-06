@@ -39,7 +39,6 @@ describe('SectionsComponent', () => {
   });
 
   it('should have tree', () => {
-    console.log(fixture.nativeElement.innerHTML);
     expect(ngMocks.find(NzTreeComponent)).toBeTruthy();
   });
 });

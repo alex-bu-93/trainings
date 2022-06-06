@@ -1,7 +1,7 @@
-import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
+import { Injectable }                                                                      from '@angular/core';
+import { HttpClient, HttpErrorResponse }                                                   from '@angular/common/http';
 import { BehaviorSubject, catchError, delay, filter, map, of, switchMap, tap, throwError } from 'rxjs';
-import omit from 'lodash-es/omit';
+import omit                                                                                from 'lodash-es/omit';
 
 interface CacheItem {
   value?: unknown;
@@ -25,7 +25,7 @@ export class AppService {
   }
 
   getRandomNumbers() {
-    return this.http.get('http://www.randomnumberapi.com/api/v1.0/random');
+    return this.http.get<number[]>('http://www.randomnumberapi.com/api/v1.0/random');
   }
 
   private clearCacheItem(key: string) {

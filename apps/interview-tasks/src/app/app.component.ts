@@ -1,9 +1,9 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component } from '@angular/core';
-import { NzButtonComponent } from 'ng-zorro-antd/button';
-import { concatMap, interval, map, startWith, Subject, switchMap, tap, timer } from 'rxjs';
-import { AppService } from './app.service';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component }                         from '@angular/core';
+import { NzButtonComponent }                                                             from 'ng-zorro-antd/button';
+import { concatMap, finalize, interval, map, startWith, Subject, switchMap, tap, timer } from 'rxjs';
+import { AppService }                                                                    from './app.service';
 
-const DEFAULT_TIMER = 3000;
+const DEFAULT_TIMER = 4_000;
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -12,18 +12,15 @@ const DEFAULT_TIMER = 3000;
 })
 export class AppComponent {
 
-  private _clicked$ = new Subject<boolean>();
-  private set clicked(value: boolean) { this._clicked$.next(value) }
-  private get clicked$() { return this._clicked$.asObservable(); }
+  private readonly clicked$ = new Subject<boolean>();
 
-  public isBtnDisabled$ = this.clicked$.pipe(
+  isBtnDisabled$ = this.clicked$.pipe(
     switchMap(() => timer(DEFAULT_TIMER).pipe(map(() => false), startWith(true)))
   );
 
-  get randomNumbers$() { return this.service.getRandomNumbers(); }
   randomNumbersByInterval$ = interval(DEFAULT_TIMER).pipe(
-    startWith(this.randomNumbers$),
-    concatMap(() => this.randomNumbers$)
+    startWith(null),
+    concatMap(() => this.service.getRandomNumbers())
   );
 
   constructor(
@@ -34,9 +31,9 @@ export class AppComponent {
 
   getRandomNumbersRq$(btn: NzButtonComponent) {
     btn['isLoading'] = true;
-    return this.randomNumbers$.pipe(
-      tap(() => this.clicked = true),
-      tap(() => btn['isLoading'] = false)
+    return this.service.getRandomNumbers().pipe(
+      tap(() => this.clicked$.next(true)),
+      finalize(() => { btn['isLoading'] = false; this.cdr.markForCheck(); })
     );
   }
 
@@ -44,7 +41,7 @@ export class AppComponent {
     btn['isLoading'] = true;
     return this.service.getCachedRandomNumbers().pipe(
       tap(res => console.log(res)),
-      tap(() => btn['isLoading'] = false)
+      finalize(() => { btn['isLoading'] = false; this.cdr.markForCheck(); })
     );
   }
 }
