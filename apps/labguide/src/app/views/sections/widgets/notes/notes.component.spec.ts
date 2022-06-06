@@ -8,7 +8,7 @@ import { Note }                             from './notes.interface';
 import { NotesService }                     from './notes.service';
 import { Section }                          from '../../sections.interface';
 
-const FAKE_SECTION = {} as Section;
+const FAKE_SECTION = {title: 'fakeTitle'} as Section;
 const FAKE_NOTES: Note[] = [{} as Note];
 
 describe('NotesComponent', () => {
@@ -21,29 +21,33 @@ describe('NotesComponent', () => {
   beforeEach(() => {
     fixture = MockRender(NotesComponent);
     if (document.activeElement) document.activeElement['blur']();
+    fixture.componentInstance.section = FAKE_SECTION;
+    fixture.detectChanges();
   });
 
   it('should create', () => {
-    expect(fixture.componentInstance).toBeTruthy()
+    expect(fixture.componentInstance).toBeTruthy();
   });
 
   it('should have request wrapper', () => {
-    fixture.componentInstance.section = {} as Section;
-    fixture.detectChanges();
     expect(ngMocks.find(RequestWrapperComponent).componentInstance).toBeTruthy()
+  });
+
+  it('should have section title', () => {
+    fixture.componentInstance.section = FAKE_SECTION as Section;
+    fixture.detectChanges();
+    expect(ngMocks.find('p').nativeElement.innerHTML).toContain(FAKE_SECTION.title);
   });
 
   it('should set inner section and update notes$ request', () => {
     const spy = jest.spyOn(TestBed.inject(NotesService), 'getNotes$');
-    fixture.componentInstance.section = FAKE_SECTION;
+    fixture.componentInstance.section = {...FAKE_SECTION};
     fixture.detectChanges();
     expect(fixture.componentInstance.section).toEqual(FAKE_SECTION);
     expect(spy).toHaveBeenCalledWith(FAKE_SECTION);
   });
 
   it('should focus textarea and mark formGroup touched on just single click', () => {
-    fixture.componentInstance.section = FAKE_SECTION;
-    fixture.detectChanges();
     ngMocks.click(ngMocks.find('button[type="submit"]'));
     fixture.detectChanges();
     expect(ngMocks.find('textarea').nativeElement).toBe(document.activeElement);

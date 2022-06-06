@@ -1,5 +1,6 @@
 import { ChangeDetectionStrategy, ChangeDetectorRef, Component, ViewChild } from '@angular/core';
 import { FormControl, FormGroup, Validators }                               from '@angular/forms';
+import { RequestWrapperComponent }                                          from '@trainings/request-wrapper';
 import { NzFormatEmitEvent, NzTreeComponent, NzTreeNode }                   from 'ng-zorro-antd/tree';
 import { NzButtonComponent }                                                from 'ng-zorro-antd/button';
 import { NzModalComponent }                                                 from 'ng-zorro-antd/modal';
@@ -16,6 +17,7 @@ import { Section }                                                          from
 export class SectionsComponent {
 
   @ViewChild(NzTreeComponent) treeComponent: NzTreeComponent;
+  @ViewChild(RequestWrapperComponent) sectionsRW: RequestWrapperComponent<Section[]>;
 
   sections$ = this.getSections$();
   section: Section;
@@ -30,7 +32,7 @@ export class SectionsComponent {
   expandedKeys: string[] = [];
 
   constructor(
-    private cdr: ChangeDetectorRef,
+    public cdr: ChangeDetectorRef,
     private service: SectionsService
   ) {
   }

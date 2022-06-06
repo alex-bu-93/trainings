@@ -1,10 +1,12 @@
-<trainings-request-wrapper #sectionsRs [request$]="sections$">
-  <div *ngIf="sectionsRs.data?.length else noSectionsTmp" class="row">
+<trainings-request-wrapper [request$]="sections$">
+  <div *ngIf="sectionsRW?.data?.length else noSectionsTmp" class="row">
     <div class="col-3 bg-light">
-      <ng-container [ngTemplateOutlet]="addSectionBtnTmp" [ngTemplateOutletContext]="{isBlock: true}"></ng-container>
+      <ng-container [ngTemplateOutlet]="addSectionBtnTmp"
+                    [ngTemplateOutletContext]="{isBlock: true}">
+      </ng-container>
       <nz-tree nzShowLine
                class="p-3"
-               [nzData]="sectionsRs.data"
+               [nzData]="sectionsRW.data"
                [nzTreeTemplate]="nzTreeTemplate"
                [nzExpandedKeys]="expandedKeys"
                (nzClick)="selectSection($event.nodes[0])">
