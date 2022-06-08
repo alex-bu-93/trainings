@@ -22,4 +22,3 @@ export class ChildComponent {
     console.log('onTapEvent');
   }
 }
-
