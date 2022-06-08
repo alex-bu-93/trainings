@@ -445,6 +445,108 @@
         }
       },
       "tags": []
+    },
+    "test-examples": {
+      "projectType": "application",
+      "root": "apps/test-examples",
+      "sourceRoot": "apps/test-examples/src",
+      "prefix": "trainings",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "outputs": ["{options.outputPath}"],
+          "options": {
+            "outputPath": "dist/apps/test-examples",
+            "index": "apps/test-examples/src/index.html",
+            "main": "apps/test-examples/src/main.ts",
+            "polyfills": "apps/test-examples/src/polyfills.ts",
+            "tsConfig": "apps/test-examples/tsconfig.app.json",
+            "inlineStyleLanguage": "scss",
+            "assets": [
+              "apps/test-examples/src/favicon.ico",
+              "apps/test-examples/src/assets",
+              {
+                "glob": "**/*",
+                "input": "./node_modules/@ant-design/icons-angular/src/inline-svg/",
+                "output": "/assets/"
+              }
+            ],
+            "styles": [
+              "apps/labguide/src/styles/customized-ant-design/styles.less",
+              "apps/labguide/src/styles/styles.scss"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "500kb",
+                  "maximumError": "1mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "2kb",
+                  "maximumError": "4kb"
+                }
+              ],
+              "fileReplacements": [
+                {
+                  "replace": "apps/test-examples/src/environments/environment.ts",
+                  "with": "apps/test-examples/src/environments/environment.prod.ts"
+                }
+              ],
+              "outputHashing": "all"
+            },
+            "development": {
+              "buildOptimizer": false,
+              "optimization": false,
+              "vendorChunk": true,
+              "extractLicenses": false,
+              "sourceMap": true,
+              "namedChunks": true
+            }
+          },
+          "defaultConfiguration": "production"
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "configurations": {
+            "production": {
+              "browserTarget": "test-examples:build:production"
+            },
+            "development": {
+              "browserTarget": "test-examples:build:development"
+            }
+          },
+          "defaultConfiguration": "development"
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "test-examples:build"
+          }
+        },
+        "lint": {
+          "builder": "@nrwl/linter:eslint",
+          "options": {
+            "lintFilePatterns": [
+              "apps/test-examples/src/**/*.ts",
+              "apps/test-examples/src/**/*.html"
+            ]
+          }
+        },
+        "test": {
+          "builder": "@nrwl/jest:jest",
+          "outputs": ["coverage/apps/test-examples"],
+          "options": {
+            "jestConfig": "apps/test-examples/jest.config.js",
+            "passWithNoTests": true
+          }
+        }
+      },
+      "tags": []
     }
   }
 }

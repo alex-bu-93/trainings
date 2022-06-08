@@ -1,0 +1,8 @@
+<p>Parent:</p>
+emittedEvent: {{emittedEvent}}
+
+<hr/>
+
+<test-examples-child [request$]="request$"
+                     (emittedEvent)="setEmittedEvent($event)">
+</test-examples-child>
