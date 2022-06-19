@@ -35,7 +35,7 @@ describe('ChildComponent', () => {
   }));
 
   it('should call onTapEvent on request$ subscription', (done) => {
-    const tapSpy = spyOn(fixture.componentInstance, 'onTapEvent').and.callThrough();
+    const tapSpy = spyOn(fixture.componentInstance, 'onTapEvent');
     fixture.componentInstance.request$ = of(null).pipe(
       finalize(() => { expect(tapSpy).toHaveBeenCalled(); done() })
     );

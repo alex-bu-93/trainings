@@ -13,9 +13,7 @@ export class ChildComponent {
   @Output() emittedEvent = new EventEmitter<number>();
 
   onSubscribe() {
-    this.request$.pipe(
-      tap(() => this.onTapEvent())
-    ).subscribe();
+    this.request$.pipe(tap(() => this.onTapEvent())).subscribe();
   }
 
   onTapEvent() {

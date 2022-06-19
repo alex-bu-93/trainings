@@ -48,7 +48,7 @@ export class AppService {
       : this.cacheMap$.asObservable().pipe(
         filter(cache => !cache[url].isLoading),
         map(cache => cache[url]),
-        switchMap(cacheMap => cacheMap.error ? throwError(cacheMap.error) : of(cacheMap.value))
+        switchMap(cacheMap => cacheMap.error ? throwError(() => cacheMap.error) : of(cacheMap.value))
       );
     else {
       this.setCacheItem(url, {isLoading: true});
