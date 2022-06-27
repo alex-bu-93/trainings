@@ -18,20 +18,20 @@ describe('ChildComponent', () => {
 
   it('should call onSubscribe method on btn click', () => {
     const spy = spyOn(fixture.componentInstance, 'onSubscribe');
-    ngMocks.click(ngMocks.find('.subscription-btn'));
+    ngMocks.click(ngMocks.find('#subscriptionBtn'));
     expect(spy).toHaveBeenCalled();
   });
 
   it('should subscribe to request$ on btn click', (done) => {
     fixture.componentInstance.request$ = of(null).pipe(finalize(() => done()));
     fixture.detectChanges();
-    ngMocks.click(ngMocks.find('.subscription-btn'));
+    ngMocks.click(ngMocks.find('#subscriptionBtn'));
   });
 
   it('should subscribe to request$ on btn click (2)', async () => new Promise<void>((resolve) => {
     fixture.componentInstance.request$ = of(null).pipe(finalize(() => resolve()));
     fixture.detectChanges();
-    ngMocks.click(ngMocks.find('.subscription-btn'));
+    ngMocks.click(ngMocks.find('#subscriptionBtn'));
   }));
 
   it('should call onTapEvent on request$ subscription', (done) => {
@@ -40,6 +40,12 @@ describe('ChildComponent', () => {
       finalize(() => { expect(tapSpy).toHaveBeenCalled(); done() })
     );
     fixture.detectChanges();
-    ngMocks.click(ngMocks.find('.subscription-btn'));
+    ngMocks.click(ngMocks.find('#subscriptionBtn'));
+  });
+
+  it('should emit event on btn click', () => {
+    spyOn(fixture.componentInstance.emittedEvent, 'emit');
+    ngMocks.click(ngMocks.find('#emitEventBtn'));
+    expect(fixture.componentInstance.emittedEvent.emit).toHaveBeenCalled();
   });
 });
