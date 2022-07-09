@@ -25,7 +25,7 @@ export class AppService {
   }
 
   getRandomNumbers() {
-    return this.http.get<number[]>('http://www.randomnumberapi.com/api/v1.0/random');
+    return this.http.get<number[]>('https://random-data-api.com/api/address/random_address');
   }
 
   private clearCacheItem(key: string) {
@@ -41,7 +41,7 @@ export class AppService {
   }
 
   getCachedRandomNumbers() {
-    const url = 'http://www.randomnumberapi.com/api/v1.0/random';
+    const url = 'https://random-data-api.com/api/address/random_address';
     const cacheItem = this.cacheMap$.getValue()[url];
     if (cacheItem) return cacheItem.value
       ? of(cacheItem.value).pipe(delay(0))

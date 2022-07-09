@@ -1,9 +1,9 @@
-import { ChangeDetectionStrategy, ChangeDetectorRef, Component }                         from '@angular/core';
-import { NzButtonComponent }                                                             from 'ng-zorro-antd/button';
-import { concatMap, finalize, interval, map, startWith, Subject, switchMap, tap, timer } from 'rxjs';
-import { AppService }                                                                    from './app.service';
+import { ChangeDetectionStrategy, ChangeDetectorRef, Component }                                 from '@angular/core';
+import { NzButtonComponent }                                                                     from 'ng-zorro-antd/button';
+import { concatMap, filter, finalize, interval, map, startWith, Subject, switchMap, tap, timer } from 'rxjs';
+import { AppService }                                                                            from './app.service';
 
-const DEFAULT_TIMER = 4_000;
+const DEFAULT_TIMER = 2_000;
 
 @Component({
   changeDetection: ChangeDetectionStrategy.OnPush,
@@ -20,6 +20,7 @@ export class AppComponent {
 
   randomNumbersByInterval$ = interval(DEFAULT_TIMER).pipe(
     startWith(null),
+    filter(() => !document.hidden),
     concatMap(() => this.service.getRandomNumbers())
   );
 
